@@ -58,6 +58,15 @@ export default function CheckoutPage() {
     if (!mpesaResult.success) {
       throw new Error(mpesaResult.error || "M-Pesa request failed");
     }
+// Send confirmation SMS
+await fetch("/api/sms", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    phone: form.phone,
+    message: `Hi ${form.name}! Your WrapUp order has been received. Total: KSh ${total()}. We'll notify you when it's ready. 🌯`,
+  }),
+});
 
     clearCart();
     router.push(`/order/${order.id}`);
