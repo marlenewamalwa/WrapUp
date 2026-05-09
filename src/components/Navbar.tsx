@@ -2,24 +2,65 @@
 
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 export default function Navbar() {
   const items = useCartStore((state) => state.items);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-green-600">
-          🌯 WrapUp
+    <nav
+     style={{ 
+  backgroundColor: "rgba(8, 5, 0, 0.95)", 
+  borderBottom: "1px solid #dce8dd",
+  backdropFilter: "blur(12px)",
+  WebkitBackdropFilter: "blur(12px)",
+}}
+      className="sticky top-0 z-50"
+    >
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
+          <span
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "1.6rem",
+              fontWeight: 600,
+              color: "var(--green-deep)",
+              letterSpacing: "0.02em",
+            }}
+          >
+            WrapUp
+          </span>
+          <span
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              backgroundColor: "var(--green-mid)",
+              display: "inline-block",
+              marginBottom: 2,
+            }}
+          />
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
+  
+        
           <Link href="/cart" className="relative">
-            <ShoppingCart className="text-gray-700 hover:text-green-600 transition" />
+            <ShoppingBag
+              size={20}
+              style={{ color: "var(--green-deep)" }}
+              className="hover:opacity-70 transition-opacity"
+            />
             {itemCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <span
+                style={{
+                  backgroundColor: "var(--green-mid)",
+                  fontSize: "0.65rem",
+                  fontFamily: "'DM Sans', sans-serif",
+                }}
+                className="absolute -top-2 -right-2 text-white rounded-full w-4 h-4 flex items-center justify-center font-medium"
+              >
                 {itemCount}
               </span>
             )}

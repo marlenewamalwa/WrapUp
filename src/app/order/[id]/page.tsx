@@ -14,38 +14,168 @@ export default async function OrderConfirmedPage({
     .single();
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main style={{ backgroundColor: "var(--cream)", minHeight: "100vh" }}>
       <Navbar />
-      <div className="flex flex-col items-center justify-center py-20 text-center px-4">
-        <div className="text-7xl mb-6">✅</div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-3">Order Confirmed!</h1>
-        <p className="text-gray-500 max-w-md mb-6">
-          Thanks {order?.customer_name}! Your wrap is being prepared.
+
+      <div className="max-w-xl mx-auto px-6 py-20 flex flex-col items-center text-center">
+        <div
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: "50%",
+            backgroundColor: "var(--green-pale)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1.8rem",
+            marginBottom: "2rem",
+          }}
+        >
+          ✓
+        </div>
+
+        <p
+          style={{
+            color: "var(--green-mid)",
+            fontSize: "0.75rem",
+            letterSpacing: "0.2em",
+            fontFamily: "'DM Sans', sans-serif",
+          }}
+          className="uppercase mb-2"
+        >
+          Order received
+        </p>
+
+        <h1
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: "clamp(2rem, 5vw, 3rem)",
+            color: "var(--text-dark)",
+            fontWeight: 600,
+          }}
+          className="mb-4"
+        >
+          {order?.customer_name ? `Thank you, ${order.customer_name.split(" ")[0]}!` : "Order Confirmed!"}
+        </h1>
+
+        <p
+          style={{
+            color: "var(--text-muted)",
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: "0.95rem",
+            lineHeight: 1.7,
+            maxWidth: 360,
+          }}
+          className="mb-10"
+        >
+          Your wrap is being prepared. We'll send you an SMS when it's ready.
         </p>
 
         {order && (
-          <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-md text-left mb-8">
-            <h2 className="font-semibold text-gray-800 mb-4">Order Details</h2>
+          <div
+            style={{
+              backgroundColor: "var(--warm-white)",
+              border: "1px solid #e8e4dc",
+              borderRadius: "16px",
+              padding: "24px",
+              width: "100%",
+              textAlign: "left",
+            }}
+            className="mb-10"
+          >
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                color: "var(--text-dark)",
+              }}
+              className="mb-4"
+            >
+              Order Summary
+            </h2>
+
             {order.items.map((item: any) => (
-              <div key={item.id} className="flex justify-between text-sm text-gray-600 mb-2">
+              <div
+                key={item.id}
+                className="flex justify-between mb-2"
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "0.88rem",
+                  fontWeight: 300,
+                  color: "var(--text-muted)",
+                }}
+              >
                 <span>{item.name} × {item.quantity}</span>
                 <span>KSh {(item.price * item.quantity).toLocaleString()}</span>
               </div>
             ))}
-            <div className="border-t pt-4 mt-4 flex justify-between font-bold text-gray-800">
-              <span>Total</span>
-              <span>KSh {order.total.toLocaleString()}</span>
+
+            <div
+              className="flex justify-between pt-4 mt-3"
+              style={{ borderTop: "1px solid #e8e4dc" }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  color: "var(--text-dark)",
+                }}
+              >
+                Total
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  color: "var(--green-deep)",
+                }}
+              >
+                KSh {order.total.toLocaleString()}
+              </span>
             </div>
-            <div className="mt-4 text-sm text-gray-500">
+
+            <div
+              className="mt-4 pt-4"
+              style={{
+                borderTop: "1px solid #e8e4dc",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.82rem",
+                fontWeight: 300,
+                color: "var(--text-muted)",
+              }}
+            >
               <p>Phone: {order.phone}</p>
-              <p>Status: <span className="text-green-600 font-medium capitalize">{order.status}</span></p>
+              <p className="mt-1">
+                Status:{" "}
+                <span
+                  style={{ color: "var(--green-mid)", fontWeight: 500 }}
+                  className="capitalize"
+                >
+                  {order.status.replace("_", " ")}
+                </span>
+              </p>
+              {order.mpesa_ref && (
+                <p className="mt-1">M-Pesa Ref: {order.mpesa_ref}</p>
+              )}
             </div>
           </div>
         )}
 
         <Link
           href="/"
-          className="bg-green-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-700 transition"
+          style={{
+            backgroundColor: "var(--green-deep)",
+            color: "var(--warm-white)",
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.8rem",
+            letterSpacing: "0.08em",
+            fontWeight: 500,
+          }}
+          className="uppercase px-10 py-4 rounded-full hover:opacity-90 transition-opacity"
         >
           Order Again
         </Link>

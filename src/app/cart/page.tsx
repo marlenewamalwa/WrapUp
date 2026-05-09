@@ -10,15 +10,43 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <main className="min-h-screen bg-gray-50">
+      <main style={{ backgroundColor: "var(--cream)", minHeight: "100vh" }}>
         <Navbar />
-        <div className="flex flex-col items-center justify-center py-32 text-center">
-          <span className="text-7xl mb-6">🌯</span>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Your cart is empty</h2>
-          <p className="text-gray-500 mb-8">Looks like you haven't added anything yet.</p>
+        <div className="flex flex-col items-center justify-center py-40 text-center px-4">
+          <span className="text-6xl mb-8">🌯</span>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "2.5rem",
+              color: "var(--text-dark)",
+              fontWeight: 600,
+            }}
+            className="mb-3"
+          >
+            Your cart is empty
+          </h2>
+          <p
+            style={{
+              color: "var(--text-muted)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
+              fontSize: "0.95rem",
+            }}
+            className="mb-10"
+          >
+            Looks like you haven't added anything yet.
+          </p>
           <Link
             href="/"
-            className="bg-green-600 text-white px-6 py-3 rounded-full font-medium hover:bg-green-700 transition"
+            style={{
+              backgroundColor: "var(--green-deep)",
+              color: "var(--warm-white)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.8rem",
+              letterSpacing: "0.08em",
+              fontWeight: 500,
+            }}
+            className="uppercase px-8 py-4 rounded-full hover:opacity-90 transition-opacity"
           >
             Browse Menu
           </Link>
@@ -28,62 +56,171 @@ export default function CartPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main style={{ backgroundColor: "var(--cream)", minHeight: "100vh" }}>
       <Navbar />
 
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Your Cart</h1>
+      <div className="max-w-3xl mx-auto px-6 py-16">
+        <p
+          style={{
+            color: "var(--green-mid)",
+            fontSize: "0.75rem",
+            letterSpacing: "0.2em",
+            fontFamily: "'DM Sans', sans-serif",
+          }}
+          className="uppercase mb-2"
+        >
+          Review your order
+        </p>
+        <h1
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: "clamp(2rem, 5vw, 3rem)",
+            color: "var(--text-dark)",
+            fontWeight: 600,
+          }}
+          className="mb-12"
+        >
+          Your Cart
+        </h1>
 
-        <div className="bg-white rounded-2xl shadow-md overflow-hidden mb-6">
+        {/* Items */}
+        <div
+          style={{
+            backgroundColor: "var(--warm-white)",
+            border: "1px solid #e8e4dc",
+            borderRadius: "16px",
+            overflow: "hidden",
+          }}
+          className="mb-6"
+        >
           {items.map((item, index) => (
             <div
               key={item.id}
-              className={`flex items-center gap-4 p-5 ${
-                index !== items.length - 1 ? "border-b border-gray-100" : ""
-              }`}
+              style={{
+                borderBottom: index !== items.length - 1 ? "1px solid #e8e4dc" : "none",
+                padding: "20px 24px",
+              }}
+              className="flex items-center gap-4"
             >
-              {/* Image / Emoji */}
-              <div className="w-16 h-16 rounded-xl bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+              {/* Image */}
+              <div
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 12,
+                  backgroundColor: "var(--green-pale)",
+                  flexShrink: 0,
+                  overflow: "hidden",
+                  position: "relative",
+                }}
+                className="flex items-center justify-center"
+              >
                 {item.image_url ? (
-                  <Image src={item.image_url} alt={item.name} width={64} height={64} className="object-cover" />
+                  <Image src={item.image_url} alt={item.name} fill className="object-cover" />
                 ) : (
-                  <span className="text-3xl">🌯</span>
+                  <span className="text-2xl">🌯</span>
                 )}
               </div>
 
-              {/* Details */}
+              {/* Name & price */}
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-800">{item.name}</h3>
-                <p className="text-green-600 font-medium text-sm">
+                <h3
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "1.15rem",
+                    fontWeight: 600,
+                    color: "var(--text-dark)",
+                  }}
+                >
+                  {item.name}
+                </h3>
+                <p
+                  style={{
+                    color: "var(--green-mid)",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.85rem",
+                    fontWeight: 300,
+                  }}
+                >
                   KSh {item.price.toLocaleString()}
                 </p>
               </div>
 
               {/* Quantity */}
-              <div className="flex items-center gap-2">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  border: "1px solid #e8e4dc",
+                  borderRadius: "99px",
+                  padding: "4px 12px",
+                  backgroundColor: "var(--cream)",
+                }}
+              >
                 <button
                   onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-gray-600 transition"
+                  style={{
+                    color: "var(--text-muted)",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "1.1rem",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
                 >
                   −
                 </button>
-                <span className="w-6 text-center font-medium">{item.quantity}</span>
+                <span
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.9rem",
+                    color: "var(--text-dark)",
+                    minWidth: 16,
+                    textAlign: "center",
+                  }}
+                >
+                  {item.quantity}
+                </span>
                 <button
                   onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-gray-600 transition"
+                  style={{
+                    color: "var(--text-muted)",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "1.1rem",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
                 >
                   +
                 </button>
               </div>
 
-              {/* Subtotal */}
-              <div className="text-right w-24">
-                <p className="font-semibold text-gray-800">
+              {/* Subtotal & remove */}
+              <div className="text-right" style={{ minWidth: 80 }}>
+                <p
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "1.1rem",
+                    fontWeight: 600,
+                    color: "var(--text-dark)",
+                  }}
+                >
                   KSh {(item.price * item.quantity).toLocaleString()}
                 </p>
                 <button
                   onClick={() => removeItem(item.id)}
-                  className="text-xs text-red-400 hover:text-red-600 transition mt-1"
+                  style={{
+                    color: "#c9897a",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.75rem",
+                    fontWeight: 300,
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    marginTop: 4,
+                  }}
                 >
                   Remove
                 </button>
@@ -93,22 +230,81 @@ export default function CartPage() {
         </div>
 
         {/* Summary */}
-        <div className="bg-white rounded-2xl shadow-md p-6">
-          <div className="flex justify-between items-center mb-2 text-gray-600">
+        <div
+          style={{
+            backgroundColor: "var(--warm-white)",
+            border: "1px solid #e8e4dc",
+            borderRadius: "16px",
+            padding: "24px",
+          }}
+        >
+          <div
+            className="flex justify-between mb-3"
+            style={{
+              color: "var(--text-muted)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.9rem",
+              fontWeight: 300,
+            }}
+          >
             <span>Subtotal</span>
             <span>KSh {total().toLocaleString()}</span>
           </div>
-          <div className="flex justify-between items-center mb-6 text-gray-600">
+          <div
+            className="flex justify-between mb-6"
+            style={{
+              color: "var(--text-muted)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.9rem",
+              fontWeight: 300,
+            }}
+          >
             <span>Delivery</span>
-            <span className="text-green-600 font-medium">Free</span>
+            <span style={{ color: "var(--green-mid)" }}>Free</span>
           </div>
-          <div className="flex justify-between items-center text-xl font-bold text-gray-800 border-t pt-4 mb-6">
-            <span>Total</span>
-            <span>KSh {total().toLocaleString()}</span>
+          <div
+            className="flex justify-between pt-5 mb-8"
+            style={{
+              borderTop: "1px solid #e8e4dc",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "1.4rem",
+                fontWeight: 600,
+                color: "var(--text-dark)",
+              }}
+            >
+              Total
+            </span>
+            <span
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "1.4rem",
+                fontWeight: 600,
+                color: "var(--green-deep)",
+              }}
+            >
+              KSh {total().toLocaleString()}
+            </span>
           </div>
+
           <Link
             href="/checkout"
-            className="block w-full bg-green-600 text-white text-center py-4 rounded-full font-semibold text-lg hover:bg-green-700 transition"
+            style={{
+              display: "block",
+              backgroundColor: "var(--green-deep)",
+              color: "var(--warm-white)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.8rem",
+              letterSpacing: "0.08em",
+              fontWeight: 500,
+              textAlign: "center",
+              padding: "16px",
+              borderRadius: "99px",
+            }}
+            className="uppercase hover:opacity-90 transition-opacity"
           >
             Proceed to Checkout
           </Link>
