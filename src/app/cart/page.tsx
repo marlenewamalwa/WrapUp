@@ -115,11 +115,15 @@ export default function CartPage() {
                 }}
                 className="flex items-center justify-center"
               >
-                {item.image_url ? (
-                  <Image src={item.image_url} alt={item.name} fill className="object-cover" />
-                ) : (
-                  <span className="text-2xl">🌯</span>
-                )}
+               {item.image_url ? (
+  <img
+    src={item.image_url}
+    alt={item.name}
+    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+  />
+) : (
+  <span className="text-2xl">🌯</span>
+)}
               </div>
 
               {/* Name & price */}

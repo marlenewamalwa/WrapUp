@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <nav
      style={{ 
-  backgroundColor: "rgba(8, 5, 0, 0.95)", 
+  backgroundColor: "rgba(243, 242, 240, 0.95)", 
   borderBottom: "1px solid #dce8dd",
   backdropFilter: "blur(12px)",
   WebkitBackdropFilter: "blur(12px)",
